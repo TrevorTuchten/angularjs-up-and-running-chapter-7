@@ -2,8 +2,7 @@
  * Created by tntdi_000 on 8/5/2016.
  */
 
-angular.module('simpleCtrl2App', [])
-  .controller('SimpleCtrl2', ['$location', '$window',
+angular.module('simpleCtrl2App', []).controller('SimpleCtrl2', ['$location', '$window',
     function($location, $window) {
       var self = this;
       self.navigate1 = function() {
