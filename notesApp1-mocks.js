@@ -8,4 +8,4 @@ angular.module('notesApp1Mocks', []).factory('ItemService', [function() {
         return [{id: 1, label: 'Mock'}];
       }
     };
-  }]);
+}]);
