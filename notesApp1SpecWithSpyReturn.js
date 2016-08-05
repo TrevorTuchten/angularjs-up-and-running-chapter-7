@@ -9,8 +9,7 @@ describe('ItemCtrl with SpyReturn', function() {
 
   beforeEach(inject(function($controller, ItemService) {
 
-    spyOn(ItemService, 'list')
-        .and.returnValue([{id: 1, label: 'Mock'}]);
+    spyOn(ItemService, 'list').and.returnValue([{id: 1, label: 'Mock'}]);
     itemService = ItemService;
     ctrl = $controller('ItemCtrl');
   }));
