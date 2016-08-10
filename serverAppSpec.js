@@ -2,38 +2,34 @@
  * Created by tntdi_000 on 8/5/2016.
  */
 
-describe('MainCtrl Server Calls', function() {
-  beforeEach(module('serverApp'));
+describe('MainCtrl Server Calls', function () {
+    beforeEach(module('serverApp'));
 
-  var ctrl, mockBackend;
+    var ctrl, mockBackend;
+    beforeEach(inject(function ($controller, $httpBackend) {
+        mockBackend = $httpBackend;
+        mockBackend.expectGET('/api/note')
+            .respond([{id: 1, label: 'Mock'}]);
+        ctrl = $controller('MainCtrl');
+        // At this point, a server request will have been made
+    }));
 
-  beforeEach(inject(function($controller, $httpBackend) {
+    it('should load items from server', function () {
+        // Initially, before the server responds,
+        //the items should be empty
+        expect(ctrl.items).toEqual([]);
 
-    mockBackend = $httpBackend;
-    mockBackend.expectGET('/api/note')
-        .respond([{id: 1, label: 'Mock'}]);
-    ctrl = $controller('MainCtrl');
-    // At this point, a server request will have been made
-  }));
+        // Simulate a server response
+        mockBackend.flush();
 
-  it('should load items from server', function() {
-    // Initially, before the server responds,
-    // the items should be empty
-    expect(ctrl.items).toEqual([]);
+        expect(ctrl.items).toEqual([{id: 1, label: 'Mock'}]);
+    });
 
-    // Simulate a server response
-    mockBackend.flush();
+    afterEach(function () {
+        // Ensure that all expects set on the $httpBackend were actually called
+        mockBackend.verifyNoOutstandingExpectation();
 
-    expect(ctrl.items).toEqual([{id: 1, label: 'Mock'}]);
-  });
-
-  afterEach(function() {
-    // Ensure that all expects set on the $httpBackend
-    // were actually called
-    mockBackend.verifyNoOutstandingExpectation();
-
-    // Ensure that all requests to the server
-    // have actually responded (using flush())
-    mockBackend.verifyNoOutstandingRequest();
-  });
+        // Ensure that all requests to the server have actually responded (using flush())
+        mockBackend.verifyNoOutstandingRequest();
+    });
 });
