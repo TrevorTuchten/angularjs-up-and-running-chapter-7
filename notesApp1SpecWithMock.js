@@ -2,18 +2,17 @@
  * Created by tntdi_000 on 8/5/2016.
  */
 
-describe('ItemCtrl With global mock', function() {
+describe('ItemCtrl With global mock', function () {
 
-  var ctrl;
-  beforeEach(module('notesApp1'));
-  beforeEach(module('notesApp1Mocks'));
+    var ctrl;
+    beforeEach(module('notesApp1'));
+    beforeEach(module('notesApp1Mocks'));
+    beforeEach(inject(function ($controller) {
+        ctrl = $controller('ItemCtrl');
+    }));
 
-  beforeEach(inject(function($controller) {
-    ctrl = $controller('ItemCtrl');
-  }));
-
-  it('should load mocked out items', function() {
-    expect(ctrl.items).toEqual([{id: 1, label: 'Mock'}]);
-  });
+    it('should load mocked out items', function () {
+        expect(ctrl.items).toEqual([{id: 1, label: 'Mock'}]);
+    });
 
 });
